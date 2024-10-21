@@ -1,3 +1,27 @@
+<?php include 'db.php'; ?>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+
+    // จัดการอัปโหลดรูปภาพ
+    $image = $_FILES['image']['name'];
+    $target_dir = "uploads/";
+    $target_file = $target_dir . basename($image);
+    move_uploaded_file($_FILES["image"]["tmp_name"], $target_file);
+
+    // บันทึกข้อมูลลงฐานข้อมูล
+    $sql = "INSERT INTO items (name, description, image) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->execute([$name, $description, $target_file]);
+
+    // Redirect กลับไปยังหน้า index.php
+    header("Location: index.php?success=1");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,7 +50,7 @@
                     <input type="file" id="image" name="image" class="w-full px-4 py-2 border rounded">
                 </div>
                 <div class="flex justify-between">
-                    <a href="index.html" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">Back</a>
+                    <a href="index.php" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-700">Back</a>
                     <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Add Item</button>
                 </div>
             </form>

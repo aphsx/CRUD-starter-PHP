@@ -1,3 +1,4 @@
+<?php include 'db.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,28 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        // ฟังก์ชันที่ใช้ในการซ่อนข้อความแจ้งเตือนหลังจากเวลาที่กำหนด
-        function hideAlert() {
-            const alertBox = document.getElementById('alert');
-            if (alertBox) {
-                setTimeout(() => {
-                    alertBox.style.display = 'none';
-                }, 3000); // 3000 มิลลิวินาที = 3 วินาที
-            }
-        }
-    </script>
 </head>
-<body class="bg-gray-100" onload="hideAlert()">
+<body class="bg-gray-100">
     <div class="container mx-auto py-10">
         <h1 class="text-center text-3xl font-bold mb-8">Product List</h1>
-
-        <!-- แสดงข้อความแจ้งเตือนถ้าเพิ่มสินค้าเสร็จ -->
-        <?php if (isset($_GET['success']) && $_GET['success'] == 1): ?>
-            <div id="alert" class="bg-green-500 text-white p-4 rounded mb-4">
-                Product added successfully!
-            </div>
-        <?php endif; ?>
 
         <!-- ปุ่มเพิ่มสินค้า -->
         <div class="flex justify-end mb-4">
@@ -51,5 +34,4 @@
         </div>
     </div>
 </body>
-
 </html>
